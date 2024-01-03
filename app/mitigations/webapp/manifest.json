@@ -1,7 +1,7 @@
 {
   "_version": "1.59.0",
   "sap.app": {
-    "id": "ns.risks",
+    "id": "ns.mitigations",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -11,21 +11,10 @@
     "description": "{{appDescription}}",
     "resources": "resources.json",
     "sourceTemplate": {
-      "id": "@sap/generator-fiori:lrop",
+      "id": "@sap/generator-fiori:worklist",
       "version": "1.12.1",
-      "toolsId": "feace306-7e55-48aa-967c-cc8c9fa3cdf9"
+      "toolsId": "3af0f4b3-3855-44ef-ac8f-6f61868e3596"
     },
-    "crossNavigation": {
-      "inbounds": {
-        "Risks-display": {
-          "signature": {
-            "parameters": {},
-            "additionalParameters": "allowed"
-          },
-          "semanticObject": "Risks",
-          "action": "display"
-        }
-      },
     "dataSources": {
       "mainService": {
         "uri": "/odata/v4/service/risk/",
@@ -61,8 +50,12 @@
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
-        "sap.ushell": {},
-        "sap.fe.templates": {}
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
       }
     },
     "contentDensities": {
@@ -73,7 +66,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "ns.risks.i18n.i18n"
+          "bundleName": "ns.mitigations.i18n.i18n"
         }
       },
       "": {
@@ -85,64 +78,69 @@
           "autoExpandSelect": true,
           "earlyRequests": true
         }
-      },
-      "@i18n": {
-        "type": "sap.ui.model.resource.ResourceModel",
-        "uri": "i18n/i18n.properties"
       }
     },
     "resources": {
       "css": []
     },
     "routing": {
-      "config": {},
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "viewPath": "ns.mitigations.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "bypassed": {
+          "target": [
+            "notFound"
+          ]
+        },
+        "async": true
+      },
       "routes": [
         {
-          "pattern": ":?query:",
-          "name": "RisksList",
-          "target": "RisksList"
+          "pattern": "",
+          "name": "worklist",
+          "target": [
+            "worklist"
+          ]
         },
         {
-          "pattern": "Risks({key}):?query:",
-          "name": "RisksObjectPage",
-          "target": "RisksObjectPage"
+          "pattern": "Mitigations/{objectId}",
+          "name": "object",
+          "target": [
+            "object"
+          ]
         }
       ],
       "targets": {
-        "RisksList": {
-          "type": "Component",
-          "id": "RisksList",
-          "name": "sap.fe.templates.ListReport",
-          "options": {
-            "settings": {
-              "contextPath": "/Risks",
-              "variantManagement": "Page",
-              "navigation": {
-                "Risks": {
-                  "detail": {
-                    "route": "RisksObjectPage"
-                  }
-                }
-              }
-            }
-          }
+        "worklist": {
+          "viewName": "Worklist",
+          "viewId": "worklist",
+          "viewLevel": 1,
+          "title": "{i18n>worklistViewTitle}"
         },
-        "RisksObjectPage": {
-          "type": "Component",
-          "id": "RisksObjectPage",
-          "name": "sap.fe.templates.ObjectPage",
-          "options": {
-            "settings": {
-              "editableHeaderContent": true,
-              "contextPath": "/Risks"
-            }
-          }
+        "object": {
+          "viewName": "Object",
+          "viewId": "object",
+          "viewLevel": 2,
+          "title": "{i18n>objectViewTitle}"
+        },
+        "objectNotFound": {
+          "viewName": "ObjectNotFound",
+          "viewId": "objectNotFound"
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound"
         }
       }
+    },
+    "rootView": {
+      "viewName": "ns.mitigations.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
     }
-  },
-  "sap.fiori": {
-    "registrationIds": [],
-    "archeType": "transactional"
   }
 }
