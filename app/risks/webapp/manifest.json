@@ -25,7 +25,8 @@
           "semanticObject": "Risks",
           "action": "display"
         }
-      },
+      }
+    },
     "dataSources": {
       "mainService": {
         "uri": "/odata/v4/service/risk/",
@@ -145,5 +146,4 @@
     "registrationIds": [],
     "archeType": "transactional"
   }
-}
 }
